@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cp \"C:/Users/AlecPoulin/OneDrive/PoulinGestionnaire/SiteWeb_backup_20260321/style.css\" \"C:/Users/AlecPoulin/OneDrive/PoulinGestionnaire/SiteWeb/style.css\")",
+      "Bash(cp \"C:/Users/AlecPoulin/OneDrive/PoulinGestionnaire/SiteWeb_backup_20260321/index.html\" \"C:/Users/AlecPoulin/OneDrive/PoulinGestionnaire/SiteWeb/index.html\")",
+      "Bash(cp \"C:/Users/AlecPoulin/OneDrive/PoulinGestionnaire/InformationBatiments/Photo/00215834-491d-46bb-aa16-f2e88795c4b0.jpg\" \"C:/Users/AlecPoulin/OneDrive/PoulinGestionnaire/SiteWeb/images/batiment-hiver.jpg\")",
+      "Bash(cp \"C:/Users/AlecPoulin/OneDrive/PoulinGestionnaire/InformationBatiments/Photo/411acda4-fa99-4fcc-96c7-bc05a626bd49.jpg\" \"C:/Users/AlecPoulin/OneDrive/PoulinGestionnaire/SiteWeb/images/corridor-interieur.jpg\")",
+      "Bash(cp \"C:/Users/AlecPoulin/OneDrive/PoulinGestionnaire/InformationBatiments/Photo/Screenshot 2025-12-08 090901.png\" \"C:/Users/AlecPoulin/OneDrive/PoulinGestionnaire/SiteWeb/images/batiment-ete.jpg\")",
+      "Bash(for f:*)",
+      "Bash(do)",
+      "Bash(sed -i 's|<a href=\"\"tel:4182301787\"\" class=\"\"btn-phone\"\">📞 418-230-1787</a>|<a href=\"\"contact.html#reservation\"\" class=\"\"btn-reserver\"\">Réserver</a>\\\\n      <a href=\"\"tel:4182301787\"\" class=\"\"btn-phone\"\">📞 418-230-1787</a>|g' \"$f\")",
+      "Bash(echo \"Done: $f\")",
+      "Bash(done)"
+    ]
+  }
+}

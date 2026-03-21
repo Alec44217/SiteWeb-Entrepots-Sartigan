@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Réserver un entrepôt | Les Entrepôts Sartigan – Saint-Georges de Beauce</title>
+  <meta name="description" content="Réservez votre entrepôt en ligne aux Entrepôts Sartigan. Choisissez votre unité et remplissez vos coordonnées. Nous vous contactons dans les 24 heures.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+
+    /* ---- ÉTAPES ---- */
+    .etapes {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin: 2.5rem 0 3rem;
+    }
+    .etape {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--gris);
+      opacity: 0.45;
+      transition: opacity 0.3s;
+    }
+    .etape.active { opacity: 1; color: var(--bleu-fonce); }
+    .etape.done   { opacity: 0.7; color: var(--vert); }
+    .etape-num {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: #e0e3e8;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; font-weight: 800;
+      transition: background 0.3s;
+    }
+    .etape.active .etape-num { background: var(--bleu); color: white; }
+    .etape.done   .etape-num { background: var(--vert); color: white; }
+    .etape-sep { width: 48px; height: 2px; background: #e0e3e8; margin: 0 0.25rem; flex-shrink: 0; }
+
+    /* ---- ONGLETS ---- */
+    .type-tabs {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #e8eaed;
+    }
+    .type-tab {
+      padding: 0.7rem 1.5rem;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--gris);
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      transition: all 0.2s;
+      background: none;
+      border-top: none; border-left: none; border-right: none;
+      font-family: inherit;
+    }
+    .type-tab.active { color: var(--bleu-fonce); border-bottom-color: var(--bleu); }
+
+    .unite-panel { display: none; }
+    .unite-panel.active {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.25rem;
+      align-items: stretch;
+    }
+
+    /* ---- CARTE UNITÉ — boutons alignés en bas ---- */
+    .unite-card-select {
+      border: 2px solid #e8eaed;
+      border-radius: 14px;
+      padding: 1.75rem 1.5rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+      background: var(--blanc);
+      display: flex;
+      flex-direction: column;
+    }
+    .unite-card-select:hover {
+      border-color: var(--bleu);
+      box-shadow: 0 6px 20px rgba(61,106,138,0.12);
+      transform: translateY(-3px);
+    }
+    .unite-card-select.selected {
+      border-color: var(--bleu);
+      background: var(--bleu-clair);
+      box-shadow: 0 6px 24px rgba(61,106,138,0.2);
+    }
+    .check-selected {
+      position: absolute; top: 1rem; right: 1rem;
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: var(--bleu); color: white;
+      display: none; align-items: center; justify-content: center;
+      font-size: 0.85rem; font-weight: 800;
+    }
+    .unite-card-select.selected .check-selected { display: flex; }
+
+    .uc-badge {
+      display: inline-block;
+      font-size: 0.72rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.07em;
+      padding: 0.2rem 0.65rem; border-radius: 20px; margin-bottom: 0.75rem;
+    }
+    .uc-badge.ext { background: var(--bleu-clair); color: var(--bleu); }
+    .uc-badge.int { background: #fff3e0; color: #c96e08; }
+    .uc-badge.pop { background: var(--bleu); color: white; margin-left: 0.4rem; }
+
+    .uc-taille { font-size: 2rem; font-weight: 800; color: var(--bleu-fonce); line-height: 1; margin-bottom: 0.2rem; }
+    .uc-sqft   { font-size: 0.82rem; color: var(--gris); margin-bottom: 1rem; }
+
+    .uc-features {
+      list-style: none;
+      margin-bottom: 1.25rem;
+      flex-grow: 1; /* pousse le bouton vers le bas */
+    }
+    .uc-features li {
+      font-size: 0.88rem; padding: 0.28rem 0;
+      border-bottom: 1px solid #f0f0f0; color: var(--texte);
+    }
+    .uc-features li::before { content: "✓ "; color: var(--vert); font-weight: 700; }
+
+    .uc-prix { font-size: 0.9rem; font-weight: 700; color: var(--bleu); margin-bottom: 0; }
+
+    .btn-select {
+      width: 100%;
+      margin-top: 1rem;
+      padding: 0.7rem;
+      border-radius: var(--radius);
+      font-weight: 700; font-size: 0.95rem;
+      cursor: pointer;
+      border: 2px solid var(--bleu);
+      background: transparent; color: var(--bleu);
+      transition: all 0.2s;
+      font-family: inherit;
+      flex-shrink: 0;
+    }
+    .unite-card-select.selected .btn-select { background: var(--bleu); color: white; }
+    .btn-select:hover { background: var(--bleu); color: white; }
+
+    /* ---- BARRE FLOTTANTE ---- */
+    .selection-bar {
+      position: sticky; bottom: 1.5rem; z-index: 50;
+      display: none; justify-content: center; margin-top: 2rem;
+    }
+    .selection-bar.visible { display: flex; }
+    .selection-bar-inner {
+      background: var(--bleu-fonce); color: white;
+      border-radius: 50px; padding: 0.9rem 2rem;
+      display: flex; align-items: center; gap: 1.5rem;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+    }
+    .selection-bar-text { font-size: 0.95rem; font-weight: 600; }
+    .selection-bar-text span { font-weight: 800; color: #7ec8e3; }
+    .btn-continuer {
+      background: white; color: var(--bleu-fonce);
+      padding: 0.6rem 1.5rem; border-radius: 50px;
+      font-weight: 800; font-size: 0.95rem;
+      cursor: pointer; border: none;
+      transition: all 0.2s; font-family: inherit;
+    }
+    .btn-continuer:hover { background: var(--bleu-clair); }
+
+    /* ---- ÉTAPE 2 ---- */
+    #etape-2 { display: none; padding-bottom: 5rem; }
+    #etape-2.visible { display: block; }
+
+    .recap-unite {
+      background: var(--bleu-clair); border: 2px solid var(--bleu);
+      border-radius: 14px; padding: 1.25rem 1.75rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem; margin-bottom: 2.5rem;
+    }
+    .recap-unite-info strong { font-size: 1.15rem; color: var(--bleu-fonce); display: block; }
+    .recap-unite-info span   { font-size: 0.9rem; color: var(--gris); }
+    .btn-changer {
+      background: none; border: 2px solid var(--bleu); color: var(--bleu);
+      padding: 0.45rem 1.1rem; border-radius: var(--radius);
+      font-weight: 700; font-size: 0.88rem; cursor: pointer;
+      font-family: inherit; transition: all 0.2s;
+    }
+    .btn-changer:hover { background: var(--bleu); color: white; }
+
+    .resa-form-card {
+      background: var(--blanc); border-radius: 16px;
+      padding: 2.5rem; box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      max-width: 640px; margin: 0 auto;
+    }
+    .resa-form-card h3 { font-size: 1.3rem; font-weight: 800; color: var(--bleu-fonce); margin-bottom: 0.4rem; }
+    .resa-form-card > p { color: var(--gris); font-size: 0.9rem; margin-bottom: 2rem; }
+
+    @media (max-width: 600px) {
+      .unite-panel.active { grid-template-columns: 1fr; }
+      .etape-label { display: none; }
+      .resa-form-card { padding: 1.5rem; }
+      .selection-bar-inner { flex-direction: column; gap: 0.75rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html"><img src="images/Logo.png" alt="Les Entrepôts Sartigan" class="logo"></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="unites.html">Nos unités</a></li>
+        <li><a href="galerie.html">Galerie</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="reserver.html" class="btn-reserver">Réserver</a>
+        <a href="tel:4182301787" class="btn-phone">📞 418-230-1787</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <h1>Réserver un entrepôt</h1>
+    <p>Choisissez votre unité, remplissez vos coordonnées — nous vous contactons dans les 24 heures</p>
+  </div>
+</section>
+
+<div class="container">
+
+  <!-- INDICATEUR D'ÉTAPES -->
+  <div class="etapes">
+    <div class="etape active" id="ind-etape-1">
+      <div class="etape-num">1</div>
+      <span class="etape-label">Choisir une unité</span>
+    </div>
+    <div class="etape-sep"></div>
+    <div class="etape" id="ind-etape-2">
+      <div class="etape-num">2</div>
+      <span class="etape-label">Vos coordonnées</span>
+    </div>
+    <div class="etape-sep"></div>
+    <div class="etape" id="ind-etape-3">
+      <div class="etape-num">3</div>
+      <span class="etape-label">Confirmation</span>
+    </div>
+  </div>
+
+  <!-- ÉTAPE 1 -->
+  <div id="etape-1">
+    <h2 class="section-title" style="margin-bottom:0.5rem;">Sélectionnez votre unité</h2>
+    <p class="section-sub">Toutes nos unités sont chauffées, éclairées et protégées contre l'humidité. Cliquez sur l'unité qui correspond à vos besoins.</p>
+
+    <div class="type-tabs">
+      <button class="type-tab active" id="tab-ext" onclick="switchTab('ext', this)">Extérieurs</button>
+      <button class="type-tab" id="tab-int" onclick="switchTab('int', this)">Intérieurs</button>
+      <button class="type-tab" id="tab-com" onclick="switchTab('com', this)">Locaux commerciaux</button>
+    </div>
+
+    <!-- UNITÉS EXTÉRIEURES -->
+    <div class="unite-panel active" id="panel-ext">
+
+      <div class="unite-card-select" data-unite-id="ext-10x10" onclick="selectUnite(this, 'Extérieur 10×10 pi — 100 pi²')">
+        <div class="check-selected">✓</div>
+        <div><span class="uc-badge ext">Extérieur</span><span class="uc-badge pop">⭐ Populaire</span></div>
+        <div class="uc-taille">10 × 10 pi</div>
+        <div class="uc-sqft">100 pieds carrés</div>
+        <ul class="uc-features">
+          <li>Mobilier d'appartement complet</li>
+          <li>Motoneige ou équipement motorisé</li>
+          <li>Équipement commercial</li>
+          <li>Porte de garage individuelle</li>
+          <li>Chauffé, éclairé, protégé contre l'humidité</li>
+        </ul>
+        <div class="uc-prix">Prix sur demande</div>
+        <button class="btn-select">Sélectionner cette unité</button>
+      </div>
+
+      <div class="unite-card-select" data-unite-id="ext-10x15" onclick="selectUnite(this, 'Extérieur 10×15 pi — 150 pi²')">
+        <div class="check-selected">✓</div>
+        <div><span class="uc-badge ext">Extérieur</span></div>
+        <div class="uc-taille">10 × 15 pi</div>
+        <div class="uc-sqft">150 pieds carrés</div>
+        <ul class="uc-features">
+          <li>Contenu d'une maison complète</li>
+          <li>Véhicule compact ou moto de route</li>
+          <li>Inventaire commercial</li>
+          <li>Porte de garage individuelle</li>
+          <li>Chauffé, éclairé, protégé contre l'humidité</li>
+        </ul>
+        <div class="uc-prix">Prix sur demande</div>
+        <button class="btn-select">Sélectionner cette unité</button>
+      </div>
+
+      <div class="unite-card-select" data-unite-id="ext-10x20" onclick="selectUnite(this, 'Extérieur 10×20 pi — 200 pi²')">
+        <div class="check-selected">✓</div>
+        <div><span class="uc-badge ext">Extérieur</span></div>
+        <div class="uc-taille">10 × 20 pi</div>
+        <div class="uc-sqft">200 pieds carrés</div>
+        <ul class="uc-features">
+          <li>Grand déménagement complet</li>
+          <li>Voiture, bateau ou VR compact</li>
+          <li>Machinerie légère</li>
+          <li>Porte de garage individuelle</li>
+          <li>Chauffé, éclairé, protégé contre l'humidité</li>
+        </ul>
+        <div class="uc-prix">Prix sur demande</div>
+        <button class="btn-select">Sélectionner cette unité</button>
+      </div>
+
+    </div>
+
+    <!-- UNITÉS INTÉRIEURES -->
+    <div class="unite-panel" id="panel-int">
+
+      <div class="unite-card-select" data-unite-id="int-5x5" onclick="selectUnite(this, 'Intérieur 5×5 pi — 25 pi²')">
+        <div class="check-selected">✓</div>
+        <div><span class="uc-badge int">Intérieur</span></div>
+        <div class="uc-taille">5 × 5 pi</div>
+        <div class="uc-sqft">25 pieds carrés</div>
+        <ul class="uc-features">
+          <li>Documents, archives, livres</li>
+          <li>Vêtements hors-saison</li>
+          <li>Articles fragiles ou de valeur</li>
+          <li>Accès corridor intérieur</li>
+          <li>Entrée avec porte de garage</li>
+        </ul>
+        <div class="uc-prix">Prix sur demande</div>
+        <button class="btn-select">Sélectionner cette unité</button>
+      </div>
+
+      <div class="unite-card-select" data-unite-id="int-5x10" onclick="selectUnite(this, 'Intérieur 5×10 pi — 50 pi²')">
+        <div class="check-selected">✓</div>
+        <div><span class="uc-badge int">Intérieur</span></div>
+        <div class="uc-taille">5 × 10 pi</div>
+        <div class="uc-sqft">50 pieds carrés</div>
+        <ul class="uc-features">
+          <li>Meubles, électronique, appareils</li>
+          <li>Équipement de bureau</li>
+          <li>Inventaire commercial sensible</li>
+          <li>Accès corridor intérieur</li>
+          <li>Entrée avec porte de garage</li>
+        </ul>
+        <div class="uc-prix">Prix sur demande</div>
+        <button class="btn-select">Sélectionner cette unité</button>
+      </div>
+
+      <div class="unite-card-select" data-unite-id="int-10x10" onclick="selectUnite(this, 'Intérieur 10×10 pi — 100 pi²')">
+        <div class="check-selected">✓</div>
+        <div><span class="uc-badge int">Intérieur</span><span class="uc-badge pop">⭐ Populaire</span></div>
+        <div class="uc-taille">10 × 10 pi</div>
+        <div class="uc-sqft">100 pieds carrés</div>
+        <ul class="uc-features">
+          <li>Mobilier d'appartement ou de maison</li>
+          <li>Électroménagers, électronique</li>
+          <li>Matériel professionnel</li>
+          <li>Accès corridor intérieur</li>
+          <li>Entrée avec porte de garage</li>
+        </ul>
+        <div class="uc-prix">Prix sur demande</div>
+        <button class="btn-select">Sélectionner cette unité</button>
+      </div>
+
+      <div class="unite-card-select" data-unite-id="int-10x15" onclick="selectUnite(this, 'Intérieur 10×15 pi — 150 pi²')">
+        <div class="check-selected">✓</div>
+        <div><span class="uc-badge int">Intérieur</span></div>
+        <div class="uc-taille">10 × 15 pi</div>
+        <div class="uc-sqft">150 pieds carrés</div>
+        <ul class="uc-features">
+          <li>Mobilier de maison entier</li>
+          <li>Stock d'entreprise</li>
+          <li>Équipement médical ou de bureau</li>
+          <li>Accès corridor intérieur</li>
+          <li>Entrée avec porte de garage</li>
+        </ul>
+        <div class="uc-prix">Prix sur demande</div>
+        <button class="btn-select">Sélectionner cette unité</button>
+      </div>
+
+    </div>
+
+    <!-- LOCAUX COMMERCIAUX -->
+    <div class="unite-panel" id="panel-com">
+
+      <div class="unite-card-select" data-unite-id="com-40x60" onclick="selectUnite(this, 'Local commercial 40×60 pi — 2 400 pi²')">
+        <div class="check-selected">✓</div>
+        <div><span class="uc-badge ext">Local commercial</span></div>
+        <div class="uc-taille">40 × 60 pi</div>
+        <div class="uc-sqft">2 400 pieds carrés</div>
+        <ul class="uc-features">
+          <li>Grand espace commercial au sol</li>
+          <li>Idéal pour commerce de détail ou atelier</li>
+          <li>Entrepôt commercial grande capacité</li>
+          <li>Chauffé, éclairé et aéré</li>
+          <li>Accès facile, route passante</li>
+        </ul>
+        <div class="uc-prix">Prix sur demande</div>
+        <button class="btn-select">Sélectionner ce local</button>
+      </div>
+
+      <div class="unite-card-select" data-unite-id="com-25x60" onclick="selectUnite(this, 'Garage commercial 25×60 pi — 1 500 pi²')">
+        <div class="check-selected">✓</div>
+        <div><span class="uc-badge ext">Garage commercial</span></div>
+        <div class="uc-taille">25 × 60 pi</div>
+        <div class="uc-sqft">1 500 pieds carrés</div>
+        <ul class="uc-features">
+          <li>Grand garage pour véhicules ou machinerie</li>
+          <li>Idéal pour mécanique, transport, entrepreneur</li>
+          <li>Porte de garage commerciale</li>
+          <li>Chauffé, éclairé et aéré</li>
+          <li>Accès véhicules lourds</li>
+        </ul>
+        <div class="uc-prix">Prix sur demande</div>
+        <button class="btn-select">Sélectionner ce local</button>
+      </div>
+
+      <div class="unite-card-select" data-unite-id="com-30x25" onclick="selectUnite(this, 'Local au 2e étage 30×25 pi — 750 pi²')">
+        <div class="check-selected">✓</div>
+        <div><span class="uc-badge ext">Local 2e étage</span></div>
+        <div class="uc-taille">30 × 25 pi</div>
+        <div class="uc-sqft">750 pieds carrés</div>
+        <ul class="uc-features">
+          <li>Espace bureau ou salle de travail</li>
+          <li>Idéal pour bureau, showroom, entrepôt léger</li>
+          <li>Situé au 2e étage du bâtiment</li>
+          <li>Chauffé, éclairé et aéré</li>
+          <li>Environnement calme et professionnel</li>
+        </ul>
+        <div class="uc-prix">Prix sur demande</div>
+        <button class="btn-select">Sélectionner ce local</button>
+      </div>
+
+    </div>
+
+    <!-- BARRE FLOTTANTE -->
+    <div class="selection-bar" id="selection-bar">
+      <div class="selection-bar-inner">
+        <div class="selection-bar-text">Unité sélectionnée : <span id="bar-unite-nom">—</span></div>
+        <button class="btn-continuer" onclick="allerEtape2()">Continuer →</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ÉTAPE 2 -->
+  <div id="etape-2">
+
+    <div class="recap-unite">
+      <div class="recap-unite-info">
+        <strong id="recap-nom">—</strong>
+        <span>Les Entrepôts Sartigan — Saint-Georges de Beauce</span>
+      </div>
+      <button class="btn-changer" onclick="retourEtape1()">← Changer d'unité</button>
+    </div>
+
+    <div class="resa-form-card">
+      <h3>Vos coordonnées</h3>
+      <p>Nous vous contacterons dans les 24 heures pour confirmer la disponibilité et finaliser le tout. Aucun paiement requis en ligne.</p>
+      <form action="https://formsubmit.co/info@entrepotssartigan.ca" method="POST">
+        <input type="hidden" name="_subject" value="Nouvelle demande de réservation — Les Entrepôts Sartigan">
+        <input type="hidden" name="_next" value="https://entrepotssartigan.ca/merci.html">
+        <input type="hidden" name="_autoresponse" value="Merci pour votre demande de réservation aux Entrepôts Sartigan ! Nous avons bien reçu vos informations et nous vous contacterons dans les 24 heures par téléphone ou courriel pour finaliser les détails de location. — Les Entrepôts Sartigan, 418-230-1787, info@entrepotssartigan.ca">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="unite_choisie" id="champ-unite">
+        <div class="form-group">
+          <label for="nom_complet">Nom complet *</label>
+          <input type="text" id="nom_complet" name="nom_complet" required placeholder="Jean Tremblay">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="telephone">Téléphone *</label>
+            <input type="tel" id="telephone" name="telephone" required placeholder="418-xxx-xxxx">
+          </div>
+          <div class="form-group">
+            <label for="email">Courriel *</label>
+            <input type="email" id="email" name="email" required placeholder="vous@exemple.com">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="adresse">Adresse postale *</label>
+          <input type="text" id="adresse" name="adresse_postale" required placeholder="123 rue Exemple, Saint-Georges, QC G5Y 1A1">
+        </div>
+        <div class="form-group">
+          <label for="date">Date de début souhaitée</label>
+          <input type="date" id="date" name="date_debut">
+        </div>
+        <div class="form-group">
+          <label for="message">Ce que vous souhaitez entreposer (optionnel)</label>
+          <textarea id="message" name="message" placeholder="Ex: meubles de déménagement, motoneige, documents d'entreprise..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Envoyer ma demande de réservation</button>
+        <p class="form-note">Une confirmation sera envoyée à votre courriel. Nous vous contactons dans les 24 heures.</p>
+      </form>
+    </div>
+
+  </div>
+
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <img src="images/Logo.png" alt="Les Entrepôts Sartigan" class="footer-logo">
+        <p class="footer-desc">Location d'entrepôts et mini-entrepôts extérieurs et intérieurs chauffés à Saint-Georges de Beauce. Accessible 24h/24, 7j/7.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="unites.html">Nos unités</a></li>
+          <li><a href="galerie.html">Galerie photos</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <div class="footer-contact-item">📞 <a href="tel:4182301787">418-230-1787</a></div>
+        <div class="footer-contact-item">✉️ <a href="mailto:info@entrepotssartigan.ca">info@entrepotssartigan.ca</a></div>
+        <div class="footer-contact-item">📍 700, 1ère Ave Sartigan<br>Saint-Georges, QC G5Y 5B8</div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Les Entrepôts Sartigan. Tous droits réservés.</span>
+      <span>Saint-Georges de Beauce, Québec</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  let uniteSelectionnee = '';
+
+  function switchTab(type, btn) {
+    document.querySelectorAll('.type-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.unite-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-' + type).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  function selectUnite(card, nomUnite) {
+    document.querySelectorAll('.unite-card-select').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    uniteSelectionnee = nomUnite;
+    document.getElementById('bar-unite-nom').textContent = nomUnite;
+    document.getElementById('selection-bar').classList.add('visible');
+  }
+
+  function allerEtape2() {
+    if (!uniteSelectionnee) return;
+    document.getElementById('champ-unite').value = uniteSelectionnee;
+    document.getElementById('recap-nom').textContent = uniteSelectionnee;
+    document.getElementById('ind-etape-1').classList.remove('active');
+    document.getElementById('ind-etape-1').classList.add('done');
+    document.getElementById('ind-etape-2').classList.add('active');
+    document.getElementById('etape-1').style.display = 'none';
+    document.getElementById('etape-2').classList.add('visible');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function retourEtape1() {
+    document.getElementById('ind-etape-1').classList.add('active');
+    document.getElementById('ind-etape-1').classList.remove('done');
+    document.getElementById('ind-etape-2').classList.remove('active');
+    document.getElementById('etape-1').style.display = 'block';
+    document.getElementById('etape-2').classList.remove('visible');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Pré-sélection via URL (?u=ext-10x10)
+  window.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    const u = params.get('u');
+    if (!u) return;
+    if (u.startsWith('int')) {
+      switchTab('int', document.getElementById('tab-int'));
+    } else if (u.startsWith('com')) {
+      switchTab('com', document.getElementById('tab-com'));
+    }
+    const card = document.querySelector(`[data-unite-id="${u}"]`);
+    if (card) {
+      selectUnite(card, card.querySelector('.uc-taille').textContent + ' pi — ' + card.querySelector('.uc-sqft').textContent);
+      setTimeout(() => allerEtape2(), 150);
+    }
+  });
+</script>
+
+</body>
+</html>
