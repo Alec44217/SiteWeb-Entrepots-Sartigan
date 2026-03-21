@@ -108,11 +108,8 @@
         <div class="form-card">
           <h3>Question ou demande d'information</h3>
           <p style="color:var(--gris); font-size:0.9rem; margin-bottom:1.5rem;">Une question sur la disponibilité, les tarifs ou nos services ? Écrivez-nous et nous vous répondons sous 24 heures.</p>
-          <form action="https://formsubmit.co/info@entrepotssartigan.ca" method="POST">
-            <input type="hidden" name="_subject" value="Question — Les Entrepôts Sartigan">
-            <input type="hidden" name="_next" value="https://entrepotssartigan.ca/merci.html">
-            <input type="hidden" name="_autoresponse" value="Merci pour votre message aux Entrepôts Sartigan ! Nous avons bien reçu votre demande et nous vous répondrons dans les 24 heures. — Les Entrepôts Sartigan, 418-230-1787">
-            <input type="hidden" name="_captcha" value="false">
+          <form name="contact" method="POST" action="/merci.html" netlify>
+            <input type="hidden" name="form-name" value="contact">
             <div class="form-group">
               <label for="nom_complet">Nom complet *</label>
               <input type="text" id="nom_complet" name="nom_complet" required placeholder="Jean Tremblay">

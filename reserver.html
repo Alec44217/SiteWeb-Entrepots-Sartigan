@@ -462,11 +462,8 @@
     <div class="resa-form-card">
       <h3>Vos coordonnées</h3>
       <p>Nous vous contacterons dans les 24 heures pour confirmer la disponibilité et finaliser le tout. Aucun paiement requis en ligne.</p>
-      <form action="https://formsubmit.co/info@entrepotssartigan.ca" method="POST">
-        <input type="hidden" name="_subject" value="Nouvelle demande de réservation — Les Entrepôts Sartigan">
-        <input type="hidden" name="_next" value="https://entrepotssartigan.ca/merci.html">
-        <input type="hidden" name="_autoresponse" value="Merci pour votre demande de réservation aux Entrepôts Sartigan ! Nous avons bien reçu vos informations et nous vous contacterons dans les 24 heures par téléphone ou courriel pour finaliser les détails de location. — Les Entrepôts Sartigan, 418-230-1787, info@entrepotssartigan.ca">
-        <input type="hidden" name="_captcha" value="false">
+      <form name="reservation" method="POST" action="/merci.html" netlify>
+        <input type="hidden" name="form-name" value="reservation">
         <input type="hidden" name="unite_choisie" id="champ-unite">
         <div class="form-group">
           <label for="nom_complet">Nom complet *</label>
