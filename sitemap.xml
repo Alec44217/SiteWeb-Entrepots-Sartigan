@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.entrepotssartigan.ca/</loc>
+    <loc>https://entrepotssartigan.ca/</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.entrepotssartigan.ca/unites</loc>
+    <loc>https://entrepotssartigan.ca/unites</loc>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.entrepotssartigan.ca/galerie</loc>
+    <loc>https://entrepotssartigan.ca/galerie</loc>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.entrepotssartigan.ca/contact</loc>
+    <loc>https://entrepotssartigan.ca/contact</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.entrepotssartigan.ca/reserver</loc>
+    <loc>https://entrepotssartigan.ca/reserver</loc>
     <priority>0.8</priority>
   </url>
 </urlset>
