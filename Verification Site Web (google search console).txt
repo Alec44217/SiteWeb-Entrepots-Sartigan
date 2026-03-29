@@ -1,0 +1,54 @@
+● Dans Search Console, voici quoi vérifier:
+
+  Pages indexées
+  - Menu gauche → Pages
+  - Tu devrais voir tes 5 pages avec le statut "Indexées"
+
+  Couverture
+  - Pas d'erreurs en rouge
+  - Pas de pages exclues sans raison
+
+  Performances
+  - Menu gauche → Performances
+  - Tu vas voir combien de fois ton site est apparu dans Google (Impressions) et combien de personnes ont cliqué (Clics)
+  - Si tu cherches "entrepôts sartigan" et que tu vois des impressions, c'est que Google t'affiche
+
+  Google My Business
+  - Si t'as fait la fiche, vérifie qu'elle est bien publiée et vérifiée
+
+  ---
+  Le signe que tout est bien fait: quand tu tapes "entrepôts Sartigan Saint-Georges" dans Google et que ton site
+  apparaît dans les résultats. On vise ça!
+
+  Veux-tu qu'on configure Google My Business maintenant pendant qu'on est là?
+
+  ---
+
+● Google Ads — quoi vérifier:
+
+  Statut de la campagne
+  - Menu gauche → "Campaigns" → "Campaigns"
+  - Le statut doit être "Enabled" (vert) — si c'est "Paused", "Pending" ou "Limited by budget", il y a un problème
+  - Tu vois aussi les colonnes Impressions, Clicks, Cost ici
+
+  Budget et dépenses
+  - Même page "Campaigns" → colonne "Budget"
+  - Vérifie que le budget quotidien est correct et qu'il y a des dépenses (si la campagne roule depuis plus de 48h)
+
+  Annonces (Assets)
+  - Menu gauche → "Campaigns" → "Asset groups"
+  - Clique sur ton asset group → tu vois tes titres et descriptions
+  - Le statut doit être "Eligible" ou "Serving"
+
+  Mots-clés
+  - Menu gauche → "Audiences, keywords, and content"
+  - Clique sur "Search keywords"
+  - Vérifie qu'il n'y a pas de mots clés "Low search volume" ou "Paused"
+
+  Aperçu de l'annonce en live
+  - Clique sur ta campagne → "Asset groups" → les 3 points → "Ad preview"
+  - Ça te montre si ton annonce s'affiche vraiment dans Google
+
+  ---
+  Le signe que Google Ads fonctionne: tu vois des "Clicks" et des "Impressions" dans le tableau de bord
+  après 24-48h de diffusion, et ton budget quotidien commence à être consommé.
