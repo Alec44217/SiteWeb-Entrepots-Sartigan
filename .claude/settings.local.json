@@ -10,7 +10,8 @@
       "Bash(do)",
       "Bash(sed -i 's|<a href=\"\"tel:4182301787\"\" class=\"\"btn-phone\"\">📞 418-230-1787</a>|<a href=\"\"contact.html#reservation\"\" class=\"\"btn-reserver\"\">Réserver</a>\\\\n      <a href=\"\"tel:4182301787\"\" class=\"\"btn-phone\"\">📞 418-230-1787</a>|g' \"$f\")",
       "Bash(echo \"Done: $f\")",
-      "Bash(done)"
+      "Bash(done)",
+      "Bash(node -e *)"
     ]
   }
 }
