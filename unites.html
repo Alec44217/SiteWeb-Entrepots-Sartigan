@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="nav.js" defer></script>
 </head>
 <body>
 
@@ -25,6 +26,18 @@
         <a href="reserver.html" class="btn-reserver">Demande de réservation</a>
         <a href="tel:4182301787" class="btn-phone">📞 418-230-1787</a>
       </div>
+      <a href="tel:4182301787" class="nav-tel-mobile" aria-label="Appeler le 418-230-1787">📞</a>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="navMobile">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="index.html">Accueil</a>
+      <a href="unites.html">Nos unités</a>
+      <a href="galerie.html">Galerie</a>
+      <a href="contact.html">Contact</a>
+      <a href="reserver.html" class="nav-mobile-cta">Demande de réservation</a>
+      <a href="tel:4182301787" class="nav-mobile-tel">📞 418-230-1787</a>
     </div>
   </nav>
 </header>
@@ -266,6 +279,7 @@
   <div class="container">
     <h2 class="section-title">Guide de sélection — Quelle taille choisir ?</h2>
     <p class="section-sub">Pas certain de la bonne taille ? Ce tableau vous aidera à choisir selon ce que vous souhaitez entreposer.</p>
+    <div class="table-wrap">
     <table class="guide-table">
       <thead>
         <tr>
@@ -277,37 +291,38 @@
       </thead>
       <tbody>
         <tr>
-          <td class="taille-col">5 × 5 pi</td>
-          <td>25 pi²</td>
-          <td>Intérieur seulement</td>
-          <td>Boîtes, archives, vêtements hors-saison, articles fragiles</td>
+          <td class="taille-col" data-label="Dimension">5 × 5 pi</td>
+          <td data-label="Superficie">25 pi²</td>
+          <td data-label="Disponibilité">Intérieur seulement</td>
+          <td data-label="Idéal pour">Boîtes, archives, vêtements hors-saison, articles fragiles</td>
         </tr>
         <tr>
-          <td class="taille-col">5 × 10 pi</td>
-          <td>50 pi²</td>
-          <td>Intérieur &amp; Extérieur</td>
-          <td>Petits meubles, électroménagers, équipement de bureau, matériel de travail</td>
+          <td class="taille-col" data-label="Dimension">5 × 10 pi</td>
+          <td data-label="Superficie">50 pi²</td>
+          <td data-label="Disponibilité">Intérieur &amp; Extérieur</td>
+          <td data-label="Idéal pour">Petits meubles, électroménagers, équipement de bureau, matériel de travail</td>
         </tr>
         <tr>
-          <td class="taille-col">10 × 10 pi</td>
-          <td>100 pi²</td>
-          <td>Intérieur &amp; Extérieur</td>
-          <td>Mobilier d'appartement complet, motoneige, équipement commercial</td>
+          <td class="taille-col" data-label="Dimension">10 × 10 pi</td>
+          <td data-label="Superficie">100 pi²</td>
+          <td data-label="Disponibilité">Intérieur &amp; Extérieur</td>
+          <td data-label="Idéal pour">Mobilier d'appartement complet, motoneige, équipement commercial</td>
         </tr>
         <tr>
-          <td class="taille-col">10 × 15 pi</td>
-          <td>150 pi²</td>
-          <td>Intérieur &amp; Extérieur</td>
-          <td>Contenu d'une maison, inventaire commercial, véhicule compact</td>
+          <td class="taille-col" data-label="Dimension">10 × 15 pi</td>
+          <td data-label="Superficie">150 pi²</td>
+          <td data-label="Disponibilité">Intérieur &amp; Extérieur</td>
+          <td data-label="Idéal pour">Contenu d'une maison, inventaire commercial, véhicule compact</td>
         </tr>
         <tr>
-          <td class="taille-col">10 × 20 pi</td>
-          <td>200 pi²</td>
-          <td>Extérieur seulement</td>
-          <td>Grand déménagement, bateau, VR compact, machinerie légère</td>
+          <td class="taille-col" data-label="Dimension">10 × 20 pi</td>
+          <td data-label="Superficie">200 pi²</td>
+          <td data-label="Disponibilité">Extérieur seulement</td>
+          <td data-label="Idéal pour">Grand déménagement, bateau, VR compact, machinerie légère</td>
         </tr>
       </tbody>
     </table>
+    </div>
     <div style="text-align:center; margin-top:2.5rem;">
       <p style="color:var(--gris); margin-bottom:1.25rem;">Toujours pas certain ? Appelez-nous — on vous conseille gratuitement.</p>
       <a href="tel:4182301787" class="btn btn-primary">📞 418-230-1787</a>

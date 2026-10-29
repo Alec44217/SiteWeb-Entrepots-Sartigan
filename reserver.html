@@ -199,11 +199,14 @@
 
     @media (max-width: 600px) {
       .unite-panel.active { grid-template-columns: 1fr; }
+      .type-tabs { flex-wrap: wrap; gap: 0.25rem; }
+      .type-tab { padding: 0.7rem 0.9rem; font-size: 0.88rem; }
       .etape-label { display: none; }
       .resa-form-card { padding: 1.5rem; }
       .selection-bar-inner { flex-direction: column; gap: 0.75rem; text-align: center; }
     }
   </style>
+  <script src="nav.js" defer></script>
 </head>
 <body>
 
@@ -221,6 +224,18 @@
         <a href="reserver.html" class="btn-reserver">Demande de réservation</a>
         <a href="tel:4182301787" class="btn-phone">📞 418-230-1787</a>
       </div>
+      <a href="tel:4182301787" class="nav-tel-mobile" aria-label="Appeler le 418-230-1787">📞</a>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="navMobile">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="index.html">Accueil</a>
+      <a href="unites.html">Nos unités</a>
+      <a href="galerie.html">Galerie</a>
+      <a href="contact.html">Contact</a>
+      <a href="reserver.html" class="nav-mobile-cta">Demande de réservation</a>
+      <a href="tel:4182301787" class="nav-mobile-tel">📞 418-230-1787</a>
     </div>
   </nav>
 </header>
